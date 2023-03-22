@@ -1,0 +1,1 @@
+export const BColor = '#000000'
