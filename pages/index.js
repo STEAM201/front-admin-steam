@@ -1,3 +1,4 @@
+import { useReducer, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
@@ -7,7 +8,26 @@ import { Button } from '@/components/button'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  return (
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'increment':
+      console.log(state) 
+      const {age} = state 
+      return {
+        ...state, 
+        age: age + 1
+      }
+      default: return null
+    }
+  } 
+  
+  const initialState = {
+    age: 42,
+    niñas: 0
+  }
+  const [state, dispatch] = useReducer(reducer, initialState)
+  console.log(state)
+  return (  
     <>
       <Head>
         <title>Create Next App</title>
@@ -16,7 +36,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-      <Button></Button>
+        <button style={{ padding: '10px' }} onClick={() => { return dispatch({ type: 'increment' }) }}>increment</button>
         <div className={styles.description}>
           <p>
           Hola hice un cambio aqui line 20
